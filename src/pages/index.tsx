@@ -205,7 +205,11 @@ const Pages: FC = () => {
     canInstallprompt,
     enabledPwa,
     handleClickOnInstallPrompt,
-  } = usePwa();
+    handleClickOnUnregister,
+    onupdatefound,
+  } = usePwa({
+    scriptURL: "/sw.js",
+  });
 
   useDidMount(() => {
     if (site) {
@@ -391,6 +395,14 @@ const Pages: FC = () => {
                 onClick={handleClickOnInstallPrompt}
               >
                 ホームに追加
+              </button>
+            ) : null}
+            {onupdatefound ? (
+              <button
+                className={styles.updateButton}
+                onClick={handleClickOnUnregister}
+              >
+                Update Pwa
               </button>
             ) : null}
           </div>
