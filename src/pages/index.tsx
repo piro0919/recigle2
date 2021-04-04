@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import Head from "next/head";
@@ -99,9 +100,18 @@ const Pages: FC = () => {
   }>({
     defaultValues,
   });
+  const isRemovedHistory = useRef(false);
   const onSubmit = useMemo(
     () =>
       handleSubmit(({ q, site }) => {
+        const { current } = isRemovedHistory;
+
+        if (current) {
+          isRemovedHistory.current = false;
+
+          return;
+        }
+
         if (!q.trim()) {
           return;
         }
@@ -110,7 +120,7 @@ const Pages: FC = () => {
         setHistories(
           Array.from(
             new Set([...histories, q.trim()].filter((_, index) => index < 10))
-          ) || []
+          ).reverse() || []
         );
 
         const plusSiteQuery = Object.keys(site)
@@ -151,14 +161,20 @@ const Pages: FC = () => {
             q: value,
           },
         });
-        const suggestions = data.map(({ suggestion }) => {
-          const { data } = suggestion[0]["$"];
+        const suggestions = data
+          .map(({ suggestion }) => {
+            const { data } = suggestion[0]["$"];
 
-          return {
+            return data;
+          })
+          .filter(
+            (value: string) =>
+              !histories.some((history: string) => value === history)
+          )
+          .map((value: string) => ({
+            value,
             type: "search",
-            value: data,
-          };
-        });
+          }));
 
         setSuggestions(
           [
@@ -223,6 +239,8 @@ const Pages: FC = () => {
   }, [onlyHeight]);
 
   useEffect(() => {
+    console.log(alwaysRenderSuggestions, histories);
+
     if (!alwaysRenderSuggestions || !histories) {
       return;
     }
@@ -260,7 +278,26 @@ const Pages: FC = () => {
                     onBlur,
                     value,
                     onChange: (_, { newValue }) => {
+                      const { current } = isRemovedHistory;
+
+                      if (current) {
+                        isRemovedHistory.current = false;
+
+                        return;
+                      }
+
                       setValue("q", newValue);
+                    },
+                    onKeyDown: (event) => {
+                      const { keyCode } = event;
+
+                      if (keyCode !== 13) {
+                        return;
+                      }
+
+                      event.preventDefault();
+
+                      handleSubmit(onSubmit)();
                     },
                     placeholder: "料理名や食材で検索",
                     type: "search",
@@ -311,15 +348,17 @@ const Pages: FC = () => {
                         <button
                           className={styles.removeButton}
                           onClick={() => {
+                            isRemovedHistory.current = true;
+
                             setHistories(
-                              (prevHistoryies: string[]) =>
-                                Array.from(
-                                  new Set(
-                                    prevHistoryies.filter(
-                                      (prevHistory) => value !== prevHistory
-                                    )
+                              Array.from(
+                                new Set(
+                                  histories.filter(
+                                    (prevHistory: string) =>
+                                      value !== prevHistory
                                   )
-                                ) || []
+                                )
+                              )
                             );
                           }}
                         >
