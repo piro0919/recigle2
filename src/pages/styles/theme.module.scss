@@ -1,0 +1,38 @@
+.container {
+  border: 1px solid #dfe1e5;
+  border-radius: 24px;
+  height: 44px;
+  margin: 24px 0 0;
+  position: relative;
+  z-index: 1;
+}
+
+.containerOpen {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-color: rgba(223, 225, 229, 0);
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+}
+
+.input {
+  outline: 0;
+}
+
+.suggestionsContainer {
+  background: #fff;
+  border-radius: 0 0 24px 24px;
+  box-shadow: 0 4px 6px 0 rgba(32, 33, 36, 0.28);
+  overflow: hidden;
+}
+
+.suggestionsList {
+  list-style: none;
+}
+
+.suggestion {
+  padding: 4px 16px;
+}
+
+.suggestionHighlighted {
+  background: #eee;
+}
