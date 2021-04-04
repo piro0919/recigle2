@@ -392,7 +392,7 @@ const Pages: FC = () => {
         </div>
         <footer className={styles.footer}>
           <div>
-            {enabledPwa ? (
+            {enabledPwa && !isPwa ? (
               <button
                 className={styles.addHomeButton}
                 disabled={appinstalled || !canInstallprompt}
