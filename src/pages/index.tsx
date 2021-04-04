@@ -204,13 +204,11 @@ const Pages: FC = () => {
     appinstalled,
     canInstallprompt,
     enabledPwa,
+    enabledUpdate,
     isPwa,
-    onupdatefound,
     showInstallPrompt,
     unregister,
-  } = usePwa({
-    scriptURL: "/sw.js",
-  });
+  } = usePwa();
   const handleClick = useCallback(async () => {
     const result = await unregister();
 
@@ -401,7 +399,7 @@ const Pages: FC = () => {
                 ホームに追加
               </button>
             ) : null}
-            {isPwa && onupdatefound ? (
+            {enabledUpdate && isPwa ? (
               <button className={styles.updateButton} onClick={handleClick}>
                 アプリを更新
               </button>
