@@ -32,6 +32,7 @@ class MyDocument extends Document {
           <meta content="telephone=no" name="format-detection" />
           <meta content="yes" name="mobile-web-app-capable" />
           <link href="/manifest.json" rel="manifest" />
+          <link href="/favicon.ico" rel="shortcut icon" />
         </Head>
         <body>
           <Main />
