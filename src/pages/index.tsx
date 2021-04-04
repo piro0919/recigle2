@@ -204,13 +204,18 @@ const Pages: FC = () => {
     appinstalled,
     canInstallprompt,
     enabledPwa,
-    handleClickOnInstallPrompt,
-    handleClickOnUnregister,
     isPwa,
     onupdatefound,
+    showInstallPrompt,
+    unregister,
   } = usePwa({
     scriptURL: "/sw.js",
   });
+  const handleClick = useCallback(async () => {
+    const result = await unregister();
+
+    alert(String(result));
+  }, [unregister]);
 
   useDidMount(() => {
     if (site) {
@@ -391,16 +396,13 @@ const Pages: FC = () => {
               <button
                 className={styles.addHomeButton}
                 disabled={appinstalled || !canInstallprompt}
-                onClick={handleClickOnInstallPrompt}
+                onClick={showInstallPrompt}
               >
                 ホームに追加
               </button>
             ) : null}
             {isPwa && onupdatefound ? (
-              <button
-                className={styles.updateButton}
-                onClick={handleClickOnUnregister}
-              >
+              <button className={styles.updateButton} onClick={handleClick}>
                 アプリを更新
               </button>
             ) : null}
