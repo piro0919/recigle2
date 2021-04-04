@@ -206,6 +206,7 @@ const Pages: FC = () => {
     enabledPwa,
     handleClickOnInstallPrompt,
     handleClickOnUnregister,
+    isPwa,
     onupdatefound,
   } = usePwa({
     scriptURL: "/sw.js",
@@ -243,8 +244,6 @@ const Pages: FC = () => {
   }, [onlyHeight]);
 
   useEffect(() => {
-    console.log(alwaysRenderSuggestions, histories);
-
     if (!alwaysRenderSuggestions || !histories) {
       return;
     }
@@ -397,12 +396,12 @@ const Pages: FC = () => {
                 ホームに追加
               </button>
             ) : null}
-            {onupdatefound ? (
+            {isPwa && onupdatefound ? (
               <button
                 className={styles.updateButton}
                 onClick={handleClickOnUnregister}
               >
-                Update Pwa
+                アプリを更新
               </button>
             ) : null}
           </div>
