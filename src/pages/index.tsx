@@ -349,6 +349,7 @@ const Pages: FC = () => {
               <button
                 className={styles.addHomeButton}
                 disabled={appinstalled || !canInstallprompt}
+                onClick={handleClickOnInstallPrompt}
               >
                 ホームに追加
               </button>
