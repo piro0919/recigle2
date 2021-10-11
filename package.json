@@ -3,7 +3,7 @@
     "@react-hook/window-size": "3.0.7",
     "@rooks/use-debounce": "4.9.2",
     "@rooks/use-did-mount": "4.10.1",
-    "@rooks/use-localstorage": "4.10.1",
+    "@rooks/use-localstorage": "4.11.2",
     "@rooks/use-outside-click-ref": "4.10.1",
     "axios": "0.21.1",
     "camelcase-keys": "6.2.2",
