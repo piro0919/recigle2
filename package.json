@@ -5,7 +5,7 @@
     "@rooks/use-did-mount": "4.10.1",
     "@rooks/use-localstorage": "4.10.1",
     "@rooks/use-outside-click-ref": "4.10.1",
-    "axios": "0.21.1",
+    "axios": "0.27.2",
     "camelcase-keys": "6.2.2",
     "next": "10.0.9",
     "next-pwa": "5.0.6",
