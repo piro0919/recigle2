@@ -15,7 +15,7 @@
     "react-dom": "17.0.1",
     "react-hook-form": "6.15.5",
     "react-icons": "4.2.0",
-    "react-three-toggle": "0.2.0",
+    "react-three-toggle": "0.5.2",
     "ress": "3.0.0",
     "sass-mq": "5.0.1",
     "use-pwa": "0.4.4",
